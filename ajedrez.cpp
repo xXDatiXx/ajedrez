@@ -90,7 +90,7 @@ void ajedrez::Insertar(ficha t[8][8]) {
 
 
 void ajedrez::Extraer() {
-	if (tope != NULL) {
+	if (tope->ante != NULL) { //Si no es el primer movimiento
 		tabl* aux = tope;
 		tope = tope->ante;
 		delete aux;
@@ -129,3 +129,38 @@ tabl ajedrez::Consultar() {
 
 }
 
+void ajedrez::Mostrar_tablero(tabl t) {
+	cout << "\t1\t2\t3\t4\t5\t6\t7\t8" << endl;
+	for (int i = 0; i < 8; i++) {
+		cout << i + 1 << "\t";
+		for (int j = 0; j < 8; j++) {
+			cout << t.tablero[i][j].pieza << " ";
+		}
+		cout << endl;
+	}
+}
+
+void ajedrez::JugarBlancas() {
+	int x, y, x1, y1;
+	tabl t = Consultar();
+	Mostrar_tablero(t);
+	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
+	cout << "Ingrese la fila: "; cin >> x;
+	cout << "Ingrese la columna: "; cin >> y;
+	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
+	cout << "Ingrese la fila: "; cin >> x1;
+	cout << "Ingrese la columna: ";	cin >> y1;
+}
+
+void ajedrez::JugarNegras() {
+	int x, y, x1, y1;
+	tabl t = Consultar();
+	Mostrar_tablero(t);
+	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
+	cout << "Ingrese la fila: "; cin >> x;
+	cout << "Ingrese la columna: "; cin >> y;
+	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
+	cout << "Ingrese la fila: "; cin >> x1;
+	cout << "Ingrese la columna: ";	cin >> y1;
+}
+		

@@ -3,13 +3,13 @@
 using namespace std;
 
 struct ficha {
-    string pieza; //Cabballo, rey, etc
-    string color; //negro o blanco
-	bool turno; //true si es el turno del jugador que tiene la ficha
+	string pieza; //Nombrede la pieza
+    string color; //Color de la pieza
+	bool turno; //Turno de la pieza
 };
 
 struct tabl {
-	ficha tablero[8][8] = { 0 };
+	ficha tablero[8][8] = {};
     tabl* ante; //para guardar los movimientos en una pila
 };
 
@@ -18,8 +18,11 @@ public:
     ajedrez();
     void actualizar_tablero();
 	void Insertar(ficha t[8][8]);
-    void Extraer(); //regresar movimientos
+    void Extraer(); //Regresar movimientos
     void Mostrar();
+	void Mostrar_tablero(tabl);
+    void JugarBlancas();
+	void JugarNegras();
     tabl Consultar();
 private:
     tabl* tope, * nuevo;
