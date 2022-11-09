@@ -1,36 +1,23 @@
 #include "ajedrez.h"
 
-ajedrez::ajedrez() { //se pone el ajedrez en su posici�n inicial
+ajedrez::ajedrez() { //se pone el ajedrez en su posici�n inicial
 	tope = NULL;
 	ficha tablero[8][8];
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			if (i == 0) {
-				if (j == 0 || j == 7) {
+				tablero[i][j].color = "Negro";
+				tablero[i][j].turno = false;
+				if (j == 0 || j == 7)
 					tablero[i][j].pieza = "Torre";
-					tablero[i][j].color = "Negro";
-					tablero[i][j].turno = false;
-				}
-				if (j == 1 || j == 6) {
+				if (j == 1 || j == 6)
 					tablero[i][j].pieza = "Caballo";
-					tablero[i][j].color = "Negro";
-					tablero[i][j].turno = false;
-				}
-				if (j == 2 || j == 5) {
+				if (j == 2 || j == 5)
 					tablero[i][j].pieza = "Alfil";
-					tablero[i][j].color = "Negro";
-					tablero[i][j].turno = false;
-				}
-				if (j == 3) {
+				if (j == 3) 
 					tablero[i][j].pieza = "Reina";
-					tablero[i][j].color = "Negro";
-					tablero[i][j].turno = false;
-				}
-				if (j == 4) {
+				if (j == 4)
 					tablero[i][j].pieza = "Rey";
-					tablero[i][j].color = "Negro";
-					tablero[i][j].turno = false;
-				}
 			}
 			if (i == 1) {
 				tablero[i][j].pieza = "Peon";
@@ -43,51 +30,36 @@ ajedrez::ajedrez() { //se pone el ajedrez en su posici�n inicial
 				tablero[i][j].turno = true;
 			}
 			if (i == 7) {
-				if (j == 0 || j == 7) {
+				tablero[i][j].color = "Blanco";
+				tablero[i][j].turno = true;
+				if (j == 0 || j == 7) 
 					tablero[i][j].pieza = "Torre";
-					tablero[i][j].color = "Blanco";
-					tablero[i][j].turno = true;
-				}
-				if (j == 1 || j == 6) {
+				if (j == 1 || j == 6)
 					tablero[i][j].pieza = "Caballo";
-					tablero[i][j].color = "Blanco";
-					tablero[i][j].turno = true;
-				}
-				if (j == 2 || j == 5) {
+				if (j == 2 || j == 5)
 					tablero[i][j].pieza = "Alfil";
-					tablero[i][j].color = "Blanco";
-					tablero[i][j].turno = true;
-				}
-				if (j == 3) {
+				if (j == 3) 
 					tablero[i][j].pieza = "Reina";
-					tablero[i][j].color = "Blanco";
-					tablero[i][j].turno = true;
-				}
-				if (j == 4) {
+				if (j == 4)
 					tablero[i][j].pieza = "Rey";
-					tablero[i][j].color = "Blanco";
-					tablero[i][j].turno = true;
-				}
 			}
 		}
 	}
 	Insertar(tablero);
 }
-
+//??
 void ajedrez::actualizar_tablero() {}
 
 void ajedrez::Insertar(ficha t[8][8]) {
 	nuevo = new tabl;
 	//agregar datos
 	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
+		for (int j = 0; j < 8; j++)
 			nuevo->tablero[i][j] = t[i][j];
-		}
 	}
 	nuevo->ante = tope;
 	tope = nuevo;
 }
-
 
 void ajedrez::Extraer() {
 	if (tope->ante != NULL) { //Si no es el primer movimiento
@@ -95,15 +67,13 @@ void ajedrez::Extraer() {
 		tope = tope->ante;
 		delete aux;
 	}
-	else {
+	else 
 		cout << "No hay movimientos que regresar" << endl;
-	}
 }
 
 void ajedrez::Mostrar() {
-	if (tope == NULL) {
+	if (tope == NULL)
 		cout << "No hay movimientos anteriores" << endl;
-	}
 	else {
 		tabl* aux = tope;
 		while (aux != NULL) {
@@ -123,13 +93,26 @@ tabl ajedrez::Consultar() {
 		tabl aux = *tope;
 		return aux;
 	}
-	else {
+	else 
 		cout << "No hay movimientos anteriores" << endl;
-	}
 
 }
 
 void ajedrez::Mostrar_tablero(tabl t) {
+	cout<<"\n\t    1         2      3       4       5       6       7       8    "<<endl;
+    for (int i = 0; i < 8; i++)
+    {
+        cout<<"  \t_________________________________________________________________"<<endl;
+        if ((i==0)||(i==7))
+            cout<<i+1<<"\t|   ♖    |    ♘   |   ♗  |   ♕    |  ♔   |   ♗   |   ♘   |   ♖   |"<<endl;
+        else if((i==1)||(i==6))
+            cout<<i+1<<"\t|   ♙    |    ♙   |   ♙  |   ♙    |  ♙   |   ♙   |   ♙   |   ♙   |"<<endl;
+        else
+            cout<<i+1<<"\t|\t |\t |\t |\t |\t |\t |\t |\t |"<<endl;
+    }
+    cout<<"  \t_________________________________________________________________"<<endl;
+    cout<<"\n\t    1         2      3       4       5       6       7       8    \n"<<endl;
+	/*
 	cout << "\t1\t2\t3\t4\t5\t6\t7\t8" << endl;
 	for (int i = 0; i < 8; i++) {
 		cout << i + 1 << "\t";
@@ -138,6 +121,7 @@ void ajedrez::Mostrar_tablero(tabl t) {
 		}
 		cout << endl;
 	}
+	*/
 }
 
 void ajedrez::JugarBlancas() {
