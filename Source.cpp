@@ -6,7 +6,6 @@
 int main() {
 	ajedrez juego;
 	int opc;
-	ficha tablero[8][8] = { };
 	bool turno = true; //Para que sea true el turno de las blancas o negras
 	do {
 		system("cls");
@@ -37,6 +36,11 @@ int main() {
 			system("cls");
 			juego.Extraer(); //Regresa el movimiento
 			juego.Mostrar_tablero(juego.Consultar()); //Despues de extraer muestra como quedo el tablero
+			if (turno) {
+				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
+			else
+				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
+			}
 			break;
 		case 0:
 			system("cls");

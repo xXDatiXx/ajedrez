@@ -131,6 +131,7 @@ void ajedrez::JugarBlancas() {
 	cout << "Ingrese la columna: ";	cin >> y1; //Pide las coordenadas a las que quiere mover la ficha
 	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
 	//Aqui faltan las condiciones para que se pueda mover la pieza
+	//Al final se inserta la nueva tabla (t)
 }
 
 void ajedrez::JugarNegras() {
@@ -146,5 +147,5 @@ void ajedrez::JugarNegras() {
 	cout << "Ingrese la columna: ";	cin >> y1;//Pide las coordenadas a las que quiere mover la ficha
 	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
 	//Aqui faltan las condiciones para que se pueda mover la pieza
-}
+	//Al final se inserta la nueva tabla (t)
 }
