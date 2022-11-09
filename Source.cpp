@@ -7,10 +7,10 @@ int main() {
 	ajedrez juego;
 	int opc;
 	ficha tablero[8][8] = { };
-	bool turno = true;
+	bool turno = true; //Para que sea true el turno de las blancas o negras
 	do {
 		system("cls");
-		juego.Mostrar_tablero(juego.Consultar());
+		juego.Mostrar_tablero(juego.Consultar()); //Muestra el tablero inicial
 		cout << endl << endl;
 		cout << "1. Mover fichas" << endl;
 		cout << "2. Regresar movimiento" << endl;
@@ -22,21 +22,21 @@ int main() {
 			system("cls");
 			if (turno) {
 				cout << "Turno de las blancas" << endl;
-				juego.JugarBlancas();
-				juego.Mostrar_tablero(juego.Consultar());
-				turno = false;
+				juego.JugarBlancas(); //Jugar con las fichas blancas
+				juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
+				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 			}
 			else {
 				cout << "Turno de las negras" << endl;
-				juego.JugarNegras();
-				juego.Mostrar_tablero(juego.Consultar());
-				turno = true;
+				juego.JugarNegras(); //Jugar con las fichas negras
+				juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
+				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
 			}
 			break;
 		case 2:
 			system("cls");
-			juego.Extraer();
-			juego.Mostrar_tablero(juego.Consultar());
+			juego.Extraer(); //Regresa el movimiento
+			juego.Mostrar_tablero(juego.Consultar()); //Despues de extraer muestra como quedo el tablero
 			break;
 		case 0:
 			system("cls");

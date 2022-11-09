@@ -1,20 +1,19 @@
-#include "ajedrez.h"
+﻿#include "ajedrez.h"
 
-ajedrez::ajedrez() { //se pone el ajedrez en su posici�n inicial
-	tope = NULL;
+ajedrez::ajedrez() { 
+	tope = NULL; //Se inicializa la pila
 	ficha tablero[8][8];
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 8; i++) { //se pone el ajedrez en su posici�n inicial
 		for (int j = 0; j < 8; j++) {
 			if (i == 0) {
 				tablero[i][j].color = "Negro";
-				tablero[i][j].turno = false;
 				if (j == 0 || j == 7)
 					tablero[i][j].pieza = "Torre";
 				if (j == 1 || j == 6)
 					tablero[i][j].pieza = "Caballo";
 				if (j == 2 || j == 5)
 					tablero[i][j].pieza = "Alfil";
-				if (j == 3) 
+				if (j == 3)
 					tablero[i][j].pieza = "Reina";
 				if (j == 4)
 					tablero[i][j].pieza = "Rey";
@@ -22,38 +21,33 @@ ajedrez::ajedrez() { //se pone el ajedrez en su posici�n inicial
 			if (i == 1) {
 				tablero[i][j].pieza = "Peon";
 				tablero[i][j].color = "Negro";
-				tablero[i][j].turno = false;
 			}
 			if (i == 6) {
 				tablero[i][j].pieza = "Peon";
 				tablero[i][j].color = "Blanco";
-				tablero[i][j].turno = true;
 			}
 			if (i == 7) {
 				tablero[i][j].color = "Blanco";
-				tablero[i][j].turno = true;
-				if (j == 0 || j == 7) 
+				if (j == 0 || j == 7)
 					tablero[i][j].pieza = "Torre";
 				if (j == 1 || j == 6)
 					tablero[i][j].pieza = "Caballo";
 				if (j == 2 || j == 5)
 					tablero[i][j].pieza = "Alfil";
-				if (j == 3) 
+				if (j == 3)
 					tablero[i][j].pieza = "Reina";
 				if (j == 4)
 					tablero[i][j].pieza = "Rey";
 			}
 		}
 	}
-	Insertar(tablero);
+	Insertar(tablero); //Inserta el tablero inicial (el que se acaba de crear) en la pila
 }
-//??
-void ajedrez::actualizar_tablero() {}
 
-void ajedrez::Insertar(ficha t[8][8]) {
+
+void ajedrez::Insertar(ficha t[8][8]) { //Inserta en la pila la matriz que se le pasa como par�metro
 	nuevo = new tabl;
-	//agregar datos
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 8; i++) { //agregando datos
 		for (int j = 0; j < 8; j++)
 			nuevo->tablero[i][j] = t[i][j];
 	}
@@ -61,17 +55,17 @@ void ajedrez::Insertar(ficha t[8][8]) {
 	tope = nuevo;
 }
 
-void ajedrez::Extraer() {
-	if (tope->ante != NULL) { //Si no es el primer movimiento
+void ajedrez::Extraer() { //Extrae el ultimo movimiento de la pila
+	if (tope->ante != NULL) { //Si no es el tablero inicial
 		tabl* aux = tope;
 		tope = tope->ante;
 		delete aux;
 	}
-	else 
+	else
 		cout << "No hay movimientos que regresar" << endl;
 }
 
-void ajedrez::Mostrar() {
+void ajedrez::Mostrar() { //Puede que lo quitemos, es para mostrar los elementos de la pila
 	if (tope == NULL)
 		cout << "No hay movimientos anteriores" << endl;
 	else {
@@ -88,30 +82,30 @@ void ajedrez::Mostrar() {
 	}
 }
 
-tabl ajedrez::Consultar() {
+tabl ajedrez::Consultar() { //Regresa el tablero que esta en el tope
 	if (tope != NULL) {
 		tabl aux = *tope;
 		return aux;
 	}
-	else 
+	else
 		cout << "No hay movimientos anteriores" << endl;
 
 }
 
 void ajedrez::Mostrar_tablero(tabl t) {
-	cout<<"\n\t    1         2      3       4       5       6       7       8    "<<endl;
-    for (int i = 0; i < 8; i++)
-    {
-        cout<<"  \t_________________________________________________________________"<<endl;
-        if ((i==0)||(i==7))
-            cout<<i+1<<"\t|   ♖    |    ♘   |   ♗  |   ♕    |  ♔   |   ♗   |   ♘   |   ♖   |"<<endl;
-        else if((i==1)||(i==6))
-            cout<<i+1<<"\t|   ♙    |    ♙   |   ♙  |   ♙    |  ♙   |   ♙   |   ♙   |   ♙   |"<<endl;
-        else
-            cout<<i+1<<"\t|\t |\t |\t |\t |\t |\t |\t |\t |"<<endl;
-    }
-    cout<<"  \t_________________________________________________________________"<<endl;
-    cout<<"\n\t    1         2      3       4       5       6       7       8    \n"<<endl;
+	cout << "\n\t    1         2      3       4       5       6       7       8    " << endl;
+	for (int i = 0; i < 8; i++)
+	{
+		cout << "  \t_________________________________________________________________" << endl;
+		if ((i == 0) || (i == 7))
+			cout << i + 1 << "\t|   ♖    |    ♘   |   ♗  |   ♕    |  ♔   |   ♗   |   ♘   |   ♖   |" << endl;
+		else if ((i == 1) || (i == 6))
+			cout << i + 1 << "\t|   ♙    |    ♙   |   ♙  |   ♙    |  ♙   |   ♙   |   ♙   |   ♙   |" << endl;
+		else
+			cout << i + 1 << "\t|\t |\t |\t |\t |\t |\t |\t |\t |" << endl;
+	}
+	cout << "  \t_________________________________________________________________" << endl;
+	cout << "\n\t    1         2      3       4       5       6       7       8    \n" << endl;
 	/*
 	cout << "\t1\t2\t3\t4\t5\t6\t7\t8" << endl;
 	for (int i = 0; i < 8; i++) {
@@ -130,10 +124,13 @@ void ajedrez::JugarBlancas() {
 	Mostrar_tablero(t);
 	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
 	cout << "Ingrese la fila: "; cin >> x;
-	cout << "Ingrese la columna: "; cin >> y;
+	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
+	//Validacion que esa ficha sea blanca si no vuelve a pedir
 	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
 	cout << "Ingrese la fila: "; cin >> x1;
-	cout << "Ingrese la columna: ";	cin >> y1;
+	cout << "Ingrese la columna: ";	cin >> y1; //Pide las coordenadas a las que quiere mover la ficha
+	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
+	//Aqui faltan las condiciones para que se pueda mover la pieza
 }
 
 void ajedrez::JugarNegras() {
@@ -142,9 +139,12 @@ void ajedrez::JugarNegras() {
 	Mostrar_tablero(t);
 	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
 	cout << "Ingrese la fila: "; cin >> x;
-	cout << "Ingrese la columna: "; cin >> y;
+	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
+	//Validacion que esa ficha sea blanca si no vuelve a pedir
 	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
 	cout << "Ingrese la fila: "; cin >> x1;
-	cout << "Ingrese la columna: ";	cin >> y1;
+	cout << "Ingrese la columna: ";	cin >> y1;//Pide las coordenadas a las que quiere mover la ficha
+	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
+	//Aqui faltan las condiciones para que se pueda mover la pieza
 }
-		
+}
