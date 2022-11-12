@@ -8,36 +8,72 @@ ajedrez::ajedrez() {
 			if (i == 0) {
 				tablero[i][j].color = "Negro";
 				if (j == 0 || j == 7)
-					tablero[i][j].pieza = "Torre";
+				{
+					tablero[i][j].pieza = "♖";
+					tablero[i][j].nombre = "TORRE";
+				}
 				if (j == 1 || j == 6)
-					tablero[i][j].pieza = "Caballo";
+				{
+					tablero[i][j].pieza = "♘";
+					tablero[i][j].nombre = "CABALLO";
+				}
 				if (j == 2 || j == 5)
-					tablero[i][j].pieza = "Alfil";
+				{
+					tablero[i][j].pieza = "♗";
+					tablero[i][j].nombre = "ALFIL";
+				}	
 				if (j == 3)
-					tablero[i][j].pieza = "Reina";
+				{
+					tablero[i][j].pieza = "♔";
+					tablero[i][j].nombre = "REINA";
+				}
 				if (j == 4)
-					tablero[i][j].pieza = "Rey";
+				{
+					tablero[i][j].pieza = "♕";
+					tablero[i][j].nombre = "REY";
+				}		
 			}
-			if (i == 1) {
-				tablero[i][j].pieza = "Peon";
+			else if (i == 1) {
+				tablero[i][j].pieza = "♙";
 				tablero[i][j].color = "Negro";
+				tablero[i][j].nombre = "PEON";
 			}
-			if (i == 6) {
-				tablero[i][j].pieza = "Peon";
+			else if (i == 6) {
+				tablero[i][j].pieza = "♙";
 				tablero[i][j].color = "Blanco";
+				tablero[i][j].nombre = "PEON";
 			}
-			if (i == 7) {
+			else if (i == 7) {
 				tablero[i][j].color = "Blanco";
 				if (j == 0 || j == 7)
-					tablero[i][j].pieza = "Torre";
+				{
+					tablero[i][j].pieza = "♖";
+					tablero[i][j].nombre = "TORRE";
+				}
 				if (j == 1 || j == 6)
-					tablero[i][j].pieza = "Caballo";
+				{
+					tablero[i][j].pieza = "♘";
+					tablero[i][j].nombre = "CABALLO";
+				}
 				if (j == 2 || j == 5)
-					tablero[i][j].pieza = "Alfil";
+				{
+					tablero[i][j].pieza = "♗";
+					tablero[i][j].nombre = "ALFIL";
+				}
 				if (j == 3)
-					tablero[i][j].pieza = "Reina";
+				{
+					tablero[i][j].pieza = "♔";
+					tablero[i][j].nombre = "REINA";
+				}
 				if (j == 4)
-					tablero[i][j].pieza = "Rey";
+				{
+					tablero[i][j].pieza = "♕";
+					tablero[i][j].nombre = "REY";
+				}
+			}
+			else
+			{
+				tablero[i][j].pieza = " ";
 			}
 		}
 	}
@@ -93,35 +129,27 @@ tabl ajedrez::Consultar() { //Regresa el tablero que esta en el tope
 }
 
 void ajedrez::Mostrar_tablero(tabl t) {
-	cout << "\n\t    1         2      3       4       5       6       7       8    " << endl;
-	for (int i = 0; i < 8; i++)
-	{
-		cout << "  \t_________________________________________________________________" << endl;
-		if ((i == 0) || (i == 7))
-			cout << i + 1 << "\t|   ♖    |    ♘   |   ♗  |   ♕    |  ♔   |   ♗   |   ♘   |   ♖   |" << endl;
-		else if ((i == 1) || (i == 6))
-			cout << i + 1 << "\t|   ♙    |    ♙   |   ♙  |   ♙    |  ♙   |   ♙   |   ♙   |   ♙   |" << endl;
-		else
-			cout << i + 1 << "\t|\t |\t |\t |\t |\t |\t |\t |\t |" << endl;
-	}
-	cout << "  \t_________________________________________________________________" << endl;
-	cout << "\n\t    1         2      3       4       5       6       7       8    \n" << endl;
-	/*
-	cout << "\t1\t2\t3\t4\t5\t6\t7\t8" << endl;
+	
+	
+	cout<<"\t\t\t\t\t\t  JUGADOR 2"<<endl;
+	cout << "\n\t\t         1        2       3        4        5        6        7        8    " << endl;
 	for (int i = 0; i < 8; i++) {
-		cout << i + 1 << "\t";
-		for (int j = 0; j < 8; j++) {
-			cout << t.tablero[i][j].pieza << " ";
-		}
-		cout << endl;
+		cout << "\t\t    _________________________________________________________________________" << endl;
+		cout <<"\t\t"<<i + 1<<"";
+		for (int j = 0; j < 8; j++)
+			cout << "   |   "<< t.tablero[i][j].pieza << " ";
+		cout << "   |  "<<i+1<<endl;
 	}
-	*/
+	cout << "\t\t    _________________________________________________________________________" << endl;
+	cout << "\n\t\t         1        2       3        4        5        6        7        8    " << endl;
+	cout<<"\n\t\t\t\t\t\t  JUGADOR 1"<<endl;
 }
 
 void ajedrez::JugarBlancas() {
 	int x, y, x1, y1;
+	bool move = false;
 	tabl t = Consultar();
-	Mostrar_tablero(t);
+	//Mostrar_tablero(t);
 	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
 	cout << "Ingrese la fila: "; cin >> x;
 	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
@@ -129,7 +157,50 @@ void ajedrez::JugarBlancas() {
 	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
 	cout << "Ingrese la fila: "; cin >> x1;
 	cout << "Ingrese la columna: ";	cin >> y1; //Pide las coordenadas a las que quiere mover la ficha
-	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
+	if(t.tablero[x][y].color == "Negro")
+	{
+		cout<<"\n\tNO ES TU TURNO"<<endl;
+		JugarBlancas();
+	}
+	else{
+		//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha 
+		if(t.tablero[x][y].nombre == "PEON")
+		{
+			move = true;
+			if(x != x1 || y1>y+1)
+				move = false;
+		}
+		if(t.tablero[x][y].nombre == "TORRE")
+		{
+			move = true;
+			if(x1==x && y!=y1)
+			{
+				for (int i = y+1; i < y1; i++)
+				{
+					if (t.tablero[x][i].pieza != " ")
+						break;
+					
+				}
+			}
+			
+			
+			
+		}
+		if(move == true)
+		{
+			t.tablero[x1][y1] = t.tablero[x][y];
+			t.tablero[x][y].pieza = " ";
+			t.tablero[x][y].nombre = " ";
+			Mostrar_tablero(t);
+		}
+		else
+		{
+			cout<<"La pieza "<<t.tablero[x][y].nombre<<" NO puede moverse de esa forma"<<endl;
+			JugarBlancas();
+		}
+		
+	}
+	
 	//Aqui faltan las condiciones para que se pueda mover la pieza
 	//Al final se inserta la nueva tabla (t)
 }
@@ -137,7 +208,7 @@ void ajedrez::JugarBlancas() {
 void ajedrez::JugarNegras() {
 	int x, y, x1, y1;
 	tabl t = Consultar();
-	Mostrar_tablero(t);
+	//Mostrar_tablero(t);
 	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
 	cout << "Ingrese la fila: "; cin >> x;
 	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
@@ -145,6 +216,15 @@ void ajedrez::JugarNegras() {
 	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
 	cout << "Ingrese la fila: "; cin >> x1;
 	cout << "Ingrese la columna: ";	cin >> y1;//Pide las coordenadas a las que quiere mover la ficha
+	if(t.tablero[x][y].color == "Blanco")
+	{
+		cout<<"\n\tNO ES TU TURNO"<<endl;
+		JugarNegras();
+	}
+	else{
+		t.tablero[x1][y1] = t.tablero[x][y];
+		t.tablero[x][y].pieza = " ";
+	}
 	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
 	//Aqui faltan las condiciones para que se pueda mover la pieza
 	//Al final se inserta la nueva tabla (t)

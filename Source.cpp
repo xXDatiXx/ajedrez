@@ -22,13 +22,13 @@ int main() {
 			if (turno) {
 				cout << "Turno de las blancas" << endl;
 				juego.JugarBlancas(); //Jugar con las fichas blancas
-				juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
+				//juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
 				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 			}
 			else {
 				cout << "Turno de las negras" << endl;
 				juego.JugarNegras(); //Jugar con las fichas negras
-				juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
+				//juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
 				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
 			}
 			break;
@@ -36,11 +36,11 @@ int main() {
 			system("cls");
 			juego.Extraer(); //Regresa el movimiento
 			juego.Mostrar_tablero(juego.Consultar()); //Despues de extraer muestra como quedo el tablero
-			if (turno) {
+			if (turno) 
 				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 			else
 				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
-			}
+		
 			break;
 		case 0:
 			system("cls");

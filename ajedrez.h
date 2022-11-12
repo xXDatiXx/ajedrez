@@ -5,6 +5,7 @@ using namespace std;
 struct ficha {
     string pieza; //Nombre de la pieza
     string color; //Color de la pieza --y si ponemos color con una bandera
+    string nombre;
 };
 
 struct tabl {
