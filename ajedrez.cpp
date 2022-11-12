@@ -177,13 +177,47 @@ void ajedrez::JugarBlancas() {
 			{
 				for (int i = y+1; i < y1; i++)
 				{
-					if (t.tablero[x][i].pieza != " ")
+					if (t.tablero[x][i].pieza != " "){ 
+						y1 = i-1;
 						break;
-					
+					}
 				}
 			}
+			else if(y==y1 && x!=x1)
+			{
+				for (int i = x+1; i < x1; i++)
+				{
+					if (t.tablero[i][y].pieza != " "){
+						x1 = i-1;
+						break;
+					}
+				}
+			}
+			else
+				move = false;			
+		}
+		if(t.tablero[x][y].nombre == "ALFIL") //?????
+		{
+			move = true;
+			if(x != x1 || y1>y+1)
+				move = false;
+		}
+		if(t.tablero[x][y].nombre == "REY")
+		{
+			move = true;
+			if(x != x1 || y1>y+1 || y != y1 || x1>x+1)
+				move = false;
 			
+		}
+		// dATIII, solo ayudame con esos dos
+		if(t.tablero[x][y].nombre == "REINA")
+		{
+			move = true;
 			
+		}
+		if(t.tablero[x][y].nombre == "CABALLO")
+		{
+			move = true;
 			
 		}
 		if(move == true)
