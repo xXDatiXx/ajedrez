@@ -16,12 +16,11 @@ struct tabl {
 class ajedrez {
 public:
     ajedrez();
-    void Extraer(); //Regresar movimientos
-    void Mostrar(); //Puede que lo quitemos
-	void Mostrar_tablero(tabl); //Muestra la matriz de fichas
-	void JugarBlancas(); //Juega las blancas
-	void JugarNegras(); //Juega las negras
-	tabl Consultar(); //Devuelve el tablero actual
+    int Extraer(); //Regresar movimientos
+    void Mostrar_tablero(tabl); //Muestra la matriz de fichas
+    void JugarBlancas(); //Juega las blancas
+    void JugarNegras(); //Juega las negras
+    tabl Consultar(); //Devuelve el tablero actual
     //Hara falta una funcion para comer pieza?
 private:
     void Insertar(ficha t[8][8]);

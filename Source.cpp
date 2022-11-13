@@ -5,7 +5,7 @@
 
 int main() {
 	ajedrez juego;
-	int opc;
+	int opc, aux;
 	bool turno = true; //Para que sea true el turno de las blancas o negras
 	do {
 		system("cls");
@@ -20,27 +20,31 @@ int main() {
 		case 1:
 			system("cls");
 			if (turno) {
-				cout << "Turno de las blancas" << endl;
+				cout << "--Turno de las BLANCAS--" << endl;
 				juego.JugarBlancas(); //Jugar con las fichas blancas
-				//juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
 				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 			}
 			else {
 				cout << "Turno de las negras" << endl;
 				juego.JugarNegras(); //Jugar con las fichas negras
-				//juego.Mostrar_tablero(juego.Consultar()); //Despues del movimiento muestra como quedo el tablero
 				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
 			}
 			break;
 		case 2:
 			system("cls");
-			juego.Extraer(); //Regresa el movimiento
-			juego.Mostrar_tablero(juego.Consultar()); //Despues de extraer muestra como quedo el tablero
-			if (turno) 
-				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
-			else
-				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
-		
+			aux = juego.Extraer(); //Regresa el movimiento
+			if (aux == -1) {
+				cout << "No hay movimientos que regresar" << endl;
+				system("pause");
+			}
+			else {
+				cout << "Movimiento regresado" << endl;
+				if (turno)
+					turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
+				else
+					turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
+				system("pause");
+			}
 			break;
 		case 0:
 			system("cls");
