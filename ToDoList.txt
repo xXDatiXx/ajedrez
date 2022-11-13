@@ -1,8 +1,4 @@
-1. Movimientos de cada pieza
-	Sara - Peon, Torre, Rey
-	Dati - Alfil, Caballo, Reina
-2. Comer piezas
-3. Interfaz gráfica 
-4. Restricciones del juego 
-5. Turnos con un bool
-6. Trabajo Escrito 
+1. Arreglar errores al correr el codigo
+2. Trabajo Escrito
+3. Trabajo Escrito inglés
+4. Presentacion
