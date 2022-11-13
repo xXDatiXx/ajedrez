@@ -18,8 +18,7 @@ public:
     ajedrez();
     int Extraer(); //Regresar movimientos
     void Mostrar_tablero(tabl); //Muestra la matriz de fichas
-    void JugarBlancas(); //Juega las blancas
-    void JugarNegras(); //Juega las negras
+    void Jugar(string); //Juega
     tabl Consultar(); //Devuelve el tablero actual
     //Hara falta una funcion para comer pieza?
 private:

@@ -130,7 +130,7 @@ void ajedrez::Mostrar_tablero(tabl t) {
 	cout << "\n\t\t\t\t\t\t  JUGADOR 1 (BLANCOS)" << endl;
 }
 
-void ajedrez::JugarBlancas() {
+void ajedrez::Jugar(string color) {
 	int x, y, x1, y1;
 	bool move = false;
 	tabl t = Consultar();
@@ -139,14 +139,10 @@ void ajedrez::JugarBlancas() {
 	cout << "Ingrese la fila: "; cin >> x;
 	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
 	x--; y--;
-	if (t.tablero[x][y].color == "Negro")
+	if (t.tablero[x][y].color != color)
 	{
-		cout << "\n\t**No es turno de esta ficha" << endl;
-		JugarBlancas();
-	}
-	else if (t.tablero[x][y].color != "Blanco") {
-		cout << "\n\t**No hay ninguna ficha en esa posicion" << endl;
-		JugarBlancas();
+		cout << "\n\t**Casilla seleccionada incorrecta" << endl;
+		Jugar(color);
 	}
 
 	cout << "\nHas seleccionado " << t.tablero[x][y].nombre << " en la posicion " << x+1 << "," << y+1 << endl;
@@ -156,20 +152,65 @@ void ajedrez::JugarBlancas() {
 	cout << "Ingrese la columna: ";	cin >> y1; //Pide las coordenadas a las que quiere mover la ficha
 	x1--; y1--;
 	
-	if (t.tablero[x1][y1].color == "Blanco") { //Validacion para mover ficha
+	if (t.tablero[x1][y1].color == color) { //Validacion para mover ficha
 		move = false;
-		cout << "\n\t**En el lugar que deseas moverte hay una ficha blanca" << endl;
-		JugarBlancas();
+		cout << "\n\t**En el lugar que deseas moverte hay una ficha aliada" << endl;
+		Jugar(color);
 	}
 
 	//Validacion ppr tipo de ficha para moverla:
 	if (t.tablero[x][y].nombre == "PEON")
 	{
+		if (color == "Blanco")
+		{
+			if (x1 == x - 1 && y1 == y)
+			{
+				move = true;
+			}
+			else if (x1 == x - 2 && y1 == y && x == 6)
+			{
+				move = true;
+			}
+			else if (x1 == x - 1 && y1 == y - 1)
+			{
+				move = true;
+			}
+			else if (x1 == x - 1 && y1 == y + 1)
+			{
+				move = true;
+			}
+			else
+			{
+				move = false;
+				cout << "\n\t**Movimiento no valido para el peon" << endl;
+				Jugar(color);
+			}
+		}
+		else {
+			if (x1 == x + 1 && y1 == y)
+			{
+				move = true;
+			}
+			else if (x1 == x + 2 && y1 == y && x == 1)
+			{
+				move = true;
+			}
+			else if (x1 == x + 1 && y1 == y - 1)
+			{
+				move = true;
+			}
+			else if (x1 == x + 1 && y1 == y + 1)
+			{
+				move = true;
+			}
+			else
+			{
+				move = false;
+				cout << "\n\t**Movimiento no valido para el peon" << endl;
+				Jugar(color);
+			}
+		}
 		move = true;
-		if (x != x1 || y1 > y + 1)
-			move = false;
-		if (t.tablero[x][y1].pieza != " " && t.tablero[x][y1].color == "Blanco")
-			move = false;
 	}
 
 	if (t.tablero[x][y].nombre == "TORRE")
@@ -179,7 +220,7 @@ void ajedrez::JugarBlancas() {
 			if (x1 < x) { //Si se mueve hacia la izquierda
 				for (int i = x - 1; i > x1; i--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][y].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][y].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][y].color == color) { //Si la ficha es del color
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							break;
 						}
@@ -194,7 +235,7 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia la derecha
 				for (int i = x + 1; i < x1; i++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][y].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][y].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][y].color == color) { //Si la ficha es del color
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							break;
 						}
@@ -212,7 +253,7 @@ void ajedrez::JugarBlancas() {
 			if (y1 < y) { //Si se mueve hacia abajo
 				for (int i = y - 1; i > y1; i--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[x][i].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[x][i].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[x][i].color == color) { //Si la ficha del color
 							y1 = i - 1; //La posicion final es la anterior a la ficha
 							break;
 						}
@@ -227,8 +268,8 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia arriba
 				for (int i = y + 1; i < y1; i++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[x][i].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[x][i].color == "Blanco") { //Si la ficha es blanca
-							y1 = i + 1; //La posicion final es la siguiente a la ficha
+						if (t.tablero[x][i].color == color) { //Si la ficha es del color
+							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							break;
 						}
 						else { //Si la ficha es negra
@@ -249,7 +290,7 @@ void ajedrez::JugarBlancas() {
 			if (x1 < x&& y1 < y) { //Si se mueve hacia abajo a la izquierda
 				for (int i = x - 1, j = y - 1; i > x1 && j > y1; i--, j--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es del color
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							y1 = j - 1; //La posicion final es la anterior a la ficha
 							break;
@@ -266,7 +307,7 @@ void ajedrez::JugarBlancas() {
 			else if (x1 < x && y1 > y) { //Si se mueve hacia abajo a la derecha
 				for (int i = x - 1, j = y + 1; i > x1 && j < y1; i--, j++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es del color
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							y1 = j + 1; //La posicion final es la siguiente a la ficha
 							break;
@@ -283,7 +324,7 @@ void ajedrez::JugarBlancas() {
 			else if (x1 > x && y1 < y) { //Si se mueve hacia arriba a la izquierda
 				for (int i = x + 1, j = y - 1; i < x1 && j > y1; i++, j--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es del color
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							y1 = j - 1; //La posicion final es la anterior a la ficha
 							break;
@@ -300,7 +341,7 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia arriba a la derecha
 				for (int i = x + 1, j = y + 1; i < x1 && j < y1; i++, j++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es del color
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							y1 = j + 1; //La posicion final es la siguiente a la ficha
 							break;
@@ -320,15 +361,14 @@ void ajedrez::JugarBlancas() {
 	if (t.tablero[x][y].nombre == "REY")
 	{
 		move = true;
-
 		if (x == x1)
 		{
-			if (y1 > y + 1 || y1 < y - 1 || (t.tablero[x][y1].pieza != " " && t.tablero[x][y1].color == "Blanco"))
+			if (y1 > y + 1 || y1 < y - 1 || (t.tablero[x][y1].pieza != " " && t.tablero[x][y1].color == color))
 				move = false;
 		}
 		else if (y == y1)
 		{
-			if (x1 > x + 1 || x1 < x - 1 || (t.tablero[x1][y].pieza != " " && t.tablero[x1][y].color == "Blanco"))
+			if (x1 > x + 1 || x1 < x - 1 || (t.tablero[x1][y].pieza != " " && t.tablero[x1][y].color == color))
 				move = false;
 		}
 		else
@@ -341,7 +381,7 @@ void ajedrez::JugarBlancas() {
 			if (x1 < x) { //Si se mueve hacia la izquierda
 				for (int i = x - 1; i > x1; i--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][y].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][y].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][y].color == color) { //Si la ficha es del color
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							break;
 						}
@@ -356,7 +396,7 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia la derecha
 				for (int i = x + 1; i < x1; i++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][y].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][y].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][y].color == color) { //Si la ficha es del color
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							break;
 						}
@@ -374,7 +414,7 @@ void ajedrez::JugarBlancas() {
 			if (y1 < y) { //Si se mueve hacia abajo
 				for (int i = y - 1; i > y1; i--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[x][i].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[x][i].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[x][i].color == color) { //Si la ficha es del color
 							y1 = i - 1; //La posicion final es la anterior a la ficha
 							break;
 						}
@@ -389,7 +429,7 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia arriba
 				for (int i = y + 1; i < y1; i++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[x][i].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[x][i].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[x][i].color == color) { //Si la ficha es del color
 							y1 = i + 1; //La posicion final es la siguiente a la ficha
 							break;
 						}
@@ -408,7 +448,7 @@ void ajedrez::JugarBlancas() {
 			if (x1 < x&& y1 < y) { //Si se mueve hacia abajo a la izquierda
 				for (int i = x - 1, j = y - 1; i > x1 && j > y1; i--, j--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es blanca
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							y1 = j - 1; //La posicion final es la anterior a la ficha
 							break;
@@ -425,7 +465,7 @@ void ajedrez::JugarBlancas() {
 			else if (x1 < x && y1 > y) { //Si se mueve hacia abajo a la derecha
 				for (int i = x - 1, j = y + 1; i > x1 && j < y1; i--, j++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es blanca
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							y1 = j + 1; //La posicion final es la siguiente a la ficha
 							break;
@@ -442,7 +482,7 @@ void ajedrez::JugarBlancas() {
 			else if (x1 > x && y1 < y) { //Si se mueve hacia arriba a la izquierda
 				for (int i = x + 1, j = y - 1; i < x1 && j > y1; i++, j--) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es blanca
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							y1 = j - 1; //La posicion final es la anterior a la ficha
 							break;
@@ -459,7 +499,7 @@ void ajedrez::JugarBlancas() {
 			else { //Si se mueve hacia arriba a la derecha
 				for (int i = x + 1, j = y + 1; i < x1 && j < y1; i++, j++) { //Recorre las posiciones entre la posicion inicial y la final
 					if (t.tablero[i][j].pieza != " ") { //Si encuentra una ficha en el camino
-						if (t.tablero[i][j].color == "Blanco") { //Si la ficha es blanca
+						if (t.tablero[i][j].color == color) { //Si la ficha es blanca
 							x1 = i + 1; //La posicion final es la siguiente a la ficha
 							y1 = j + 1; //La posicion final es la siguiente a la ficha
 							break;
@@ -481,74 +521,99 @@ void ajedrez::JugarBlancas() {
 	{
 		move = false;
 		if (x1 == x + 2 && y1 == y + 1) { //Si se mueve hacia arriba a la derecha
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //come
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x + 2 && y1 == y - 1) { //Si se mueve hacia arriba a la izquierda
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
 				move = true;
 			}
+			else {
+				move = true;
+			}
+			
 		}
 		else if (x1 == x - 2 && y1 == y + 1) { //Si se mueve hacia abajo a la derecha
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x - 2 && y1 == y - 1) { //Si se mueve hacia abajo a la izquierda
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x + 1 && y1 == y + 2) { //Si se mueve hacia arriba a la derecha
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x + 1 && y1 == y - 2) { //Si se mueve hacia arriba a la izquierda
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x - 1 && y1 == y + 2) { //Si se mueve hacia abajo a la derecha
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
 		else if (x1 == x - 1 && y1 == y - 2) { //Si se mueve hacia abajo a la izquierda
-			if (t.tablero[x1][y1].color == "Blanco") { //No se mueve porque hay una blanca
+			if (t.tablero[x1][y1].color == color) { //No se mueve porque hay una blanca
 				move = false;
 			}
-			else if (t.tablero[x1][y1].color == "Negro") { //se come a la negra
+			else if (t.tablero[x1][y1].color != color) { //se come a la negra
 				cout << "Te has comido " << t.tablero[x1][y1].nombre << endl;
+				move = true;
+			}
+			else {
 				move = true;
 			}
 		}
@@ -565,35 +630,10 @@ void ajedrez::JugarBlancas() {
 	else
 	{
 		cout << "La pieza " << t.tablero[x][y].nombre << " NO puede moverse de esa forma" << endl;
-		JugarBlancas();
+		Jugar(color);
 	}
 
-	if (t.tablero[x1][y1].color == "Negro") { //Validacion para comer ficha
+	if (t.tablero[x1][y1].color != color) { //Validacion para comer ficha
 		cout << "\n\t¡Comiste " << t.tablero[x1][y1].nombre << " negro!" << endl;
 	}
-}
-
-void ajedrez::JugarNegras() {
-	int x, y, x1, y1;
-	tabl t = Consultar();
-	//Mostrar_tablero(t);
-	cout << "Ingrese la posicion de la pieza que desea mover" << endl;
-	cout << "Ingrese la fila: "; cin >> x;
-	cout << "Ingrese la columna: "; cin >> y; //Pide las coordenadas de la ficha que quiere mover
-	//Validacion que esa ficha sea blanca si no vuelve a pedir
-	cout << "Ingrese la posicion a la que desea mover la pieza" << endl;
-	cout << "Ingrese la fila: "; cin >> x1;
-	cout << "Ingrese la columna: ";	cin >> y1;//Pide las coordenadas a las que quiere mover la ficha
-	if (t.tablero[x][y].color == "Blanco")
-	{
-		cout << "\n\tNO ES TU TURNO" << endl;
-		JugarNegras();
-	}
-	else {
-		t.tablero[x1][y1] = t.tablero[x][y];
-		t.tablero[x][y].pieza = " ";
-	}
-	//Validacion que esa ficha se pueda mover ahi, segun los movimentos de la ficha
-	//Aqui faltan las condiciones para que se pueda mover la pieza
-	//Al final se inserta la nueva tabla (t)
 }

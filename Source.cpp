@@ -9,6 +9,7 @@ int main() {
 	bool turno = true; //Para que sea true el turno de las blancas o negras
 	do {
 		system("cls");
+		setlocale(LC_ALL, "");
 		juego.Mostrar_tablero(juego.Consultar()); //Muestra el tablero inicial
 		cout << endl << endl;
 		cout << "1. Mover fichas" << endl;
@@ -21,12 +22,12 @@ int main() {
 			system("cls");
 			if (turno) {
 				cout << "--Turno de las BLANCAS--" << endl;
-				juego.JugarBlancas(); //Jugar con las fichas blancas
+				juego.Jugar("Blanco"); //Jugar con las fichas blancas
 				turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 			}
 			else {
-				cout << "Turno de las negras" << endl;
-				juego.JugarNegras(); //Jugar con las fichas negras
+				cout << "--Turno de las NEGRAS--" << endl;
+				juego.Jugar("Negro"); //Jugar con las fichas negras
 				turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
 			}
 			break;
