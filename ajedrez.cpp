@@ -1,4 +1,4 @@
-﻿#include "ajedrez.h"
+#include "ajedrez.h"
 
 ajedrez::ajedrez() {
 	tope = NULL; //Se inicializa la pila
@@ -104,13 +104,15 @@ int ajedrez::Extraer() { //Extrae el ultimo movimiento de la pila
 }
 
 tabl ajedrez::Consultar() { //Regresa el tablero que esta en el tope
+	tabl aux;
 	if (tope != NULL) {
-		tabl aux = *tope;
+		aux = *tope;
 		return aux;
 	}
-	else
-		cout << "No hay movimientos anteriores" << endl;
-
+	else{
+		cout << "\v\t**No hay movimientos anteriores" << endl;
+		return aux;
+	}
 }
 
 void ajedrez::Mostrar_tablero(tabl t) {
@@ -631,9 +633,5 @@ void ajedrez::Jugar(string color) {
 	{
 		cout << "La pieza " << t.tablero[x][y].nombre << " NO puede moverse de esa forma" << endl;
 		Jugar(color);
-	}
-
-	if (t.tablero[x1][y1].color != color) { //Validacion para comer ficha
-		cout << "\n\t¡Comiste " << t.tablero[x1][y1].nombre << " negro!" << endl;
 	}
 }
