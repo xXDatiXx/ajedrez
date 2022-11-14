@@ -8,7 +8,7 @@ int main() {
 	int opc, aux;
 	bool turno = true; //Para que sea true el turno de las blancas o negras
 	do {
-		system("clear");
+		system("cls");
 		setlocale(LC_ALL, "");
 		juego.Mostrar_tablero(juego.Consultar()); //Muestra el tablero inicial
 		cout << endl << endl;
@@ -36,7 +36,7 @@ int main() {
 			aux = juego.Extraer(); //Regresa el movimiento
 			if (aux == -1) {
 				cout << "No hay movimientos que regresar" << endl;
-				system("pause");
+				system("sleep 2");
 			}
 			else {
 				cout << "Movimiento regresado" << endl;
@@ -44,16 +44,18 @@ int main() {
 					turno = false; //Pone turno en false para que la siguiente juagda sea de las negras
 				else
 					turno = true; //Pone turno en true para que la siguiente juagda sea de las blancas
-				system("pause");
+				system("sleep 2");
 			}
 			break;
 		case 0:
 			system("clear");
 			cout << "Saliendo..." << endl;
+			system("sleep 2");
 			break;
 		default:
 			system("clear");
 			cout << "Opcion no valida" << endl;
+			system("sleep 2");
 			break;
 		}
 	} while (opc != 0);

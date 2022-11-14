@@ -145,6 +145,7 @@ void ajedrez::Jugar(string color) {
 	{
 		cout << "\n\t**Casilla seleccionada incorrecta" << endl;
 		Jugar(color);
+		return;
 	}
 
 	cout << "\nHas seleccionado " << t.tablero[x][y].nombre << " en la posicion " << x+1 << "," << y+1 << endl;
@@ -158,6 +159,7 @@ void ajedrez::Jugar(string color) {
 		move = false;
 		cout << "\n\t**En el lugar que deseas moverte hay una ficha aliada" << endl;
 		Jugar(color);
+		return;
 	}
 
 	//Validacion ppr tipo de ficha para moverla:
@@ -186,6 +188,7 @@ void ajedrez::Jugar(string color) {
 				move = false;
 				cout << "\n\t**Movimiento no valido para el peon" << endl;
 				Jugar(color);
+				return;
 			}
 		}
 		else {
@@ -210,6 +213,7 @@ void ajedrez::Jugar(string color) {
 				move = false;
 				cout << "\n\t**Movimiento no valido para el peon" << endl;
 				Jugar(color);
+				return;
 			}
 		}
 		move = true;
@@ -221,12 +225,12 @@ void ajedrez::Jugar(string color) {
 		if (x1 == x && y1 != y) { //Si se mueve horizontal
 			if (x1 < x) { //Si se mueve hacia la izquierda
 				for (int i = x - 1; i > x1; i--) { //Recorre las posiciones entre la posicion inicial y la final
-					if (t.tablero[i][y].pieza != " ") { //Si encuentra una ficha en el camino
+					if (t.tablero[i][y].nombre != " ") { //Si encuentra una ficha en el camino
 						if (t.tablero[i][y].color == color) { //Si la ficha es del color
 							x1 = i - 1; //La posicion final es la anterior a la ficha
 							break;
 						}
-						else { //Si la ficha es negra
+						else { //Si la ficha es del otro color
 							t.tablero[i][y] = {}; //Elimina la ficha
 							x1 = i; //La posicion final es la ficha
 							break;
@@ -633,5 +637,6 @@ void ajedrez::Jugar(string color) {
 	{
 		cout << "La pieza " << t.tablero[x][y].nombre << " NO puede moverse de esa forma" << endl;
 		Jugar(color);
+		return;
 	}
 }
