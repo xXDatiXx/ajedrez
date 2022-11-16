@@ -1,4 +1,0 @@
-1. Arreglar errores al correr el codigo
-2. Trabajo Escrito
-3. Trabajo Escrito inglés
-4. Presentacion
